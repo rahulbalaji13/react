@@ -5,25 +5,28 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+// RootLayout.tsx
+
 import '../styles/globals.css';
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}): JSX.Element {
-  'use no memo';
+}
+
+export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
+  const title =
+    process.env.NODE_ENV === 'development'
+      ? '[DEV] React Compiler Playground'
+      : 'React Compiler Playground';
+
   return (
     <html lang="en">
       <head>
-        <title>
-          {process.env.NODE_ENV === 'development'
-            ? '[DEV] React Compiler Playground'
-            : 'React Compiler Playground'}
-        </title>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"></meta>
+        <title>{title}</title>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta name="description" content="Interactive playground for React Compiler experimentation" />
+        <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/site.webmanifest" />
         <link
@@ -37,6 +40,17 @@ export default function RootLayout({
           rel="preload"
           href="/fonts/Optimistic_Display_W_Lt.woff2"
           as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
+      <body className="font-sans h-screen overflow-y-hidden text-gray-900 bg-white">
+        {children}
+      </body>
+    </html>
+  );
+}
+
           type="font/woff2"
           crossOrigin="anonymous"
         />
